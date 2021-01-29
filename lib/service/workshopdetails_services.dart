@@ -2,15 +2,15 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:jsontolistview/class/bank_details_class.dart';
+import 'package:jsontolistview/class/workshopdetails_class.dart';
 import 'package:path_provider/path_provider.dart';
 
 const String url =
-    'https://storage.googleapis.com/s3.codeapprun.io/userassets/jayamurugan/hREtxasuCFbank.json';
+    'https://storage.googleapis.com/s3.codeapprun.io/userassets/jayamurugan/YvNGFagKOVnew_causelist.json';
 
 // ignore: missing_return
-Future<List<BankDetails>> fetchProfileInfo() async {
-  String fileName = "announcement.json";
+Future<List<WorkShopDetails>> fetchProfileInfo() async {
+  String fileName = "workshopdeta.json";
 
   var dir = await getApplicationDocumentsDirectory();
 
@@ -24,7 +24,7 @@ Future<List<BankDetails>> fetchProfileInfo() async {
       final response = await http.get(url);
       if (response.statusCode == 200) {
         var listofdata = response.body;
-        List<BankDetails> list = parseUsers(listofdata);
+        List<WorkShopDetails> list = parseUsers(listofdata);
         file.writeAsStringSync(listofdata, flush: true, mode: FileMode.write);
         return list;
       } else {
@@ -40,7 +40,7 @@ Future<List<BankDetails>> fetchProfileInfo() async {
       final response = await http.get(url);
       if (response.statusCode == 200) {
         var listofdata = response.body;
-        List<BankDetails> list = parseUsers(listofdata);
+        List<WorkShopDetails> list = parseUsers(listofdata);
         file.writeAsStringSync(listofdata, flush: true, mode: FileMode.write);
         return list;
       } else {
@@ -52,14 +52,16 @@ Future<List<BankDetails>> fetchProfileInfo() async {
   } else if (file.existsSync()) {
     print("Loading from cache");
     var jsonData = file.readAsStringSync();
-    List<BankDetails> list = parseUsers(jsonData);
+    List<WorkShopDetails> list = parseUsers(jsonData);
     return list;
   } else {
     print("App first time loaded. So please on mobile data.");
   }
 }
 
-List<BankDetails> parseUsers(String responseBody) {
+List<WorkShopDetails> parseUsers(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<BankDetails>((json) => BankDetails.fromJson(json)).toList();
+  return parsed
+      .map<WorkShopDetails>((json) => WorkShopDetails.fromJson(json))
+      .toList();
 }

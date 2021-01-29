@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jsontolistview/service/causelistdetails_service.dart';
-import 'class/causelistdetails_class.dart';
-import 'package:date_format/date_format.dart';
+import 'package:jsontolistview/service/workshopdetails_services.dart';
+import 'class/workshopdetails_class.dart';
 
 void main() {
   runApp(new MyApp());
@@ -25,8 +24,8 @@ class MyHomePage extends StatefulWidget {
 bool isLoading = true;
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<CauseListDetails> documents = List();
-  List<CauseListDetails> announcementList = List();
+  List<WorkShopDetails> documents = List();
+  List<WorkShopDetails> announcementList = List();
 
   @override
   void initState() {
@@ -60,74 +59,133 @@ class _MyHomePageState extends State<MyHomePage> {
                     shrinkWrap: true,
                     itemCount: announcementList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      DateTime date =
-                          DateTime.parse(announcementList[index].causeDate);
+                      // DateTime date =
+                      //     DateTime.parse(announcementList[index].createdDate);
 
-                      String causeDate =
-                          formatDate(date, [yyyy, '/', mm, '/', dd]);
+                      // String causeDate =
+                      //     formatDate(date, [yyyy, '/', mm, '/', dd]);
 
                       return Card(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Bench" +
+                            Text("Service" +
                                 ": " +
-                                announcementList[index].jurisdiction),
-                            Text("Date" + ": " + causeDate),
-                            Text("time" +
-                                ": " +
-                                announcementList[index].causeTime),
-                            Text("Coram" +
-                                ": " +
-                                announcementList[index].judge +
-                                "\n" +
-                                announcementList[index].technicalMembers),
-
+                                announcementList[index].services),
                             //cause details inner array
-
-                            Container(
-                              height: 100,
-                              child: Row(
-                                children: [
-                                  for (var i in announcementList[index]
-                                      .causeDetails[0]
-                                      .sno)
-                                    Text(i.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .caseType)
-                                    Text(j.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .caseNumber)
-                                    Text(j.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .caseYear)
-                                    Text(j.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .services)
-                                    Text(j.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .bench)
-                                    Text(j.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .advocate)
-                                    Text(j.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .pettioner)
-                                    Text(j.toString()),
-                                  for (var j in announcementList[index]
-                                      .causeDetails[0]
-                                      .respondent)
-                                    Text(j.toString()),
-                                ],
-                              ),
-                            ),
+                            // Container(
+                            //   color: Colors.white,
+                            //   padding: EdgeInsets.all(20.0),
+                            //   child: Table(
+                            //     border: TableBorder.all(color: Colors.black),
+                            //     children: [
+                            //       TableRow(children: [
+                            //         Text(
+                            //           "APPLICATION/APPEAL NO.",
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //         Text(
+                            //           "NAME OF PARTIES",
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //         Text(
+                            //           "NAME OF REPRESENTATIVE",
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //       ]),
+                            //       TableRow(children: [
+                            //         Text(
+                            //           announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .caseType[0]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .caseNumber[0]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .caseYear[0]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .bench[0]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .services[0]
+                            //                   .toString(),
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //         Text(
+                            //           announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .advocate[0] +
+                            //               "\n vs \n" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .pettioner[0],
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //         Text(
+                            //           announcementList[index]
+                            //               .causeDetails[0]
+                            //               .respondent[0],
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //       ]),
+                            //       TableRow(children: [
+                            //         Text(
+                            //           announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .caseType[1]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .caseNumber[1]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .caseYear[1]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .bench[1]
+                            //                   .toString() +
+                            //               "/" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .services[1]
+                            //                   .toString(),
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //         Text(
+                            //           announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .advocate[1] +
+                            //               "\n vs \n" +
+                            //               announcementList[index]
+                            //                   .causeDetails[0]
+                            //                   .pettioner[1],
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //         Text(
+                            //           announcementList[index]
+                            //               .causeDetails[0]
+                            //               .respondent[1],
+                            //           textAlign: TextAlign.center,
+                            //         ),
+                            //       ]),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       );
