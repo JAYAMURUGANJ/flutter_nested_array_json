@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jsontolistview/service/workshopdetails_services.dart';
+import 'package:jsonflutter/service/workshopdetails_services.dart';
 import 'class/workshopdetails_class.dart';
 
 void main() {
@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
     fetchProfileInfo().then(
       (value) {
         setState(() {
@@ -69,123 +70,88 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Service" +
-                                ": " +
-                                announcementList[index].services),
-                            //cause details inner array
-                            // Container(
-                            //   color: Colors.white,
-                            //   padding: EdgeInsets.all(20.0),
-                            //   child: Table(
-                            //     border: TableBorder.all(color: Colors.black),
-                            //     children: [
-                            //       TableRow(children: [
-                            //         Text(
-                            //           "APPLICATION/APPEAL NO.",
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //         Text(
-                            //           "NAME OF PARTIES",
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //         Text(
-                            //           "NAME OF REPRESENTATIVE",
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //       ]),
-                            //       TableRow(children: [
-                            //         Text(
-                            //           announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .caseType[0]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .caseNumber[0]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .caseYear[0]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .bench[0]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .services[0]
-                            //                   .toString(),
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //         Text(
-                            //           announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .advocate[0] +
-                            //               "\n vs \n" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .pettioner[0],
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //         Text(
-                            //           announcementList[index]
-                            //               .causeDetails[0]
-                            //               .respondent[0],
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //       ]),
-                            //       TableRow(children: [
-                            //         Text(
-                            //           announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .caseType[1]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .caseNumber[1]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .caseYear[1]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .bench[1]
-                            //                   .toString() +
-                            //               "/" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .services[1]
-                            //                   .toString(),
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //         Text(
-                            //           announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .advocate[1] +
-                            //               "\n vs \n" +
-                            //               announcementList[index]
-                            //                   .causeDetails[0]
-                            //                   .pettioner[1],
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //         Text(
-                            //           announcementList[index]
-                            //               .causeDetails[0]
-                            //               .respondent[1],
-                            //           textAlign: TextAlign.center,
-                            //         ),
-                            //       ]),
-                            //     ],
-                            //   ),
-                            // ),
+                            Text("Name" + ": " + announcementList[index].name,
+                                textAlign: TextAlign.center),
+                            Text(
+                                "Service" +
+                                    ": " +
+                                    announcementList[index].services,
+                                textAlign: TextAlign.center),
+                            Container(
+                              color: Colors.white,
+                              padding: EdgeInsets.all(20.0),
+                              child: Table(
+                                border: TableBorder.all(color: Colors.black),
+                                children: [
+                                  TableRow(children: [
+                                    Text(
+                                      "Place",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "Bike Model",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "Owner Name",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ]),
+                                  TableRow(children: [
+                                    Text(
+                                      announcementList[index]
+                                          .workDetails[0]
+                                          .bike0
+                                          .place
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      announcementList[index]
+                                          .workDetails[0]
+                                          .bike0
+                                          .ownerName
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      announcementList[index]
+                                          .workDetails[0]
+                                          .bike0
+                                          .bikeModel
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ]),
+                                  TableRow(children: [
+                                    Text(
+                                      announcementList[index]
+                                          .workDetails[0]
+                                          .bike1
+                                          .place
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      announcementList[index]
+                                          .workDetails[0]
+                                          .bike1
+                                          .ownerName
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      announcementList[index]
+                                          .workDetails[0]
+                                          .bike1
+                                          .bikeModel
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ]),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       );
