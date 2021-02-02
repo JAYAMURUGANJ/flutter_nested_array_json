@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jsonflutter/service/workshopdetails_services.dart';
 import 'class/workshopdetails_class.dart';
 
+
 void main() {
   runApp(new MyApp());
 }
@@ -26,6 +27,8 @@ bool isLoading = true;
 class _MyHomePageState extends State<MyHomePage> {
   List<WorkShopDetails> documents = List();
   List<WorkShopDetails> announcementList = List();
+
+  var workdetails;
 
   @override
   void initState() {
@@ -66,95 +69,59 @@ class _MyHomePageState extends State<MyHomePage> {
                       // String causeDate =
                       //     formatDate(date, [yyyy, '/', mm, '/', dd]);
 
+                      var det = announcementList[index]
+                          .workDetails[0]
+                          .toJson()
+                          .forEach((k, v) =>
+                              v.forEach((k, v) => print('${k}: ${v}')));
+
                       return Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Name" + ": " + announcementList[index].name,
-                                textAlign: TextAlign.center),
-                            Text(
-                                "Service" +
-                                    ": " +
-                                    announcementList[index].services,
-                                textAlign: TextAlign.center),
-                            Container(
-                              color: Colors.white,
-                              padding: EdgeInsets.all(20.0),
-                              child: Table(
-                                border: TableBorder.all(color: Colors.black),
+                          child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
                                 children: [
-                                  TableRow(children: [
-                                    Text(
-                                      "Place",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      "Bike Model",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      "Owner Name",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ]),
-                                  TableRow(children: [
-                                    Text(
-                                      announcementList[index]
-                                          .workDetails[0]
-                                          .bike0
-                                          .place
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      announcementList[index]
-                                          .workDetails[0]
-                                          .bike0
-                                          .ownerName
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      announcementList[index]
-                                          .workDetails[0]
-                                          .bike0
-                                          .bikeModel
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ]),
-                                  TableRow(children: [
-                                    Text(
-                                      announcementList[index]
-                                          .workDetails[0]
-                                          .bike1
-                                          .place
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      announcementList[index]
-                                          .workDetails[0]
-                                          .bike1
-                                          .ownerName
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      announcementList[index]
-                                          .workDetails[0]
-                                          .bike1
-                                          .bikeModel
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ]),
+                                  Text(
+                                      "Mechanic Name" +
+                                          ": " +
+                                          announcementList[index].name,
+                                      textAlign: TextAlign.center),
+                                  Text(
+                                      "Service" +
+                                          ": " +
+                                          announcementList[index].services,
+                                      textAlign: TextAlign.center),
+                                  Column(
+                                    children: announcementList[index]
+                                        .workDetails[0]
+                                        .toJson()
+                                        .values
+                                        .map<Widget>((v) => Container(
+                                            color: Colors.white,
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Table(
+                                                border: TableBorder.all(
+                                                    color: Colors.black),
+                                                children: [
+                                                  TableRow(children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              15.0),
+                                                      child: Text("Place: " +
+                                                          v['place'] +
+                                                          "\n" +
+                                                          "Bike Model : " +
+                                                          v['bike_model'] +
+                                                          "\n" +
+                                                          "Owner Name : " +
+                                                          v['owner_name']),
+                                                    )
+                                                  ])
+                                                ])))
+                                        .toList(),
+                                  ),
                                 ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
+                              )));
                     })));
   }
 }
